@@ -58,12 +58,8 @@ var vm = (function () {
         });
         return filtered;
     });
+
     var cart = ko.observableArray([]);
-    var showCartDetails = function () {
-        if (cart().length > 0) {
-            $("#cartContainer").removeClass("hidden");
-        }
-    };
 
     var addToCart = function (data) {
         var item = null;
@@ -110,18 +106,25 @@ var vm = (function () {
         return total;
     });
 
+    var visibleCatalog = ko.observable(true);    
+    var visibleCart = ko.observable(false);
+
+    var showCartDetails = function () {
+        if (cart().length > 0) {
+            visibleCart(true);
+        }
+    };
+
     var hideCartDetails = function () {
-        $("#cartContainer").addClass("hidden");
+        visibleCart(false);
     };
 
     var showOrder = function () {
-        $("#catalogContainer").addClass("hidden");
-        $("#orderContainer").removeClass("hidden");
+        visibleCatalog(false);
     };
 
     var showCatalog = function () {
-        $("#catalogContainer").removeClass("hidden");
-        $("#orderContainer").addClass("hidden");
+        visibleCatalog(true);
     };
 
     var finishOrder = function() {
@@ -148,7 +151,9 @@ var vm = (function () {
         hideCartDetails: hideCartDetails,
         showOrder: showOrder,
         showCatalog: showCatalog,
-        finishOrder: finishOrder
+        finishOrder: finishOrder,
+        visibleCatalog: visibleCatalog,
+        visibleCart: visibleCart
     };
 })();
 
