@@ -1,62 +1,39 @@
 <!DOCTYPE html>
 <html>
-<head>
-    <title>KO Shopping Cart</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.2.0/css/bootstrap.min.css">
-</head>
-<body>
-    <h1>Catalog</h1>
-    <form class="form-horizontal" role="form" data-bind="with:newProduct">
-        <div class="form-group">
-            <div class="col-sm-12">
-                <input type="text" class="form-control" placeholder="Name" data-bind="textInput:name">
+    <head>
+        <title>KO Shopping Cart</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.2.0/css/bootstrap.min.css">
+        <link rel="stylesheet" type="text/css" href="/css/style.css">
+    </head>
+    <body>
+        <div class="container-fluid">
+            <div class="row" id="catalogContainer">
+                <div class="col-xs-12" data-bind="template:{name:'header'}"></div>
+                <div class="col-xs-6" data-bind="template:{name:'catalog'}"></div>
+                <div id="cartContainer" class="col-xs-6 well hidden" data-bind="template:{name:'cart'}"></div>
             </div>
-        </div>
-        <div class="form-group">
-            <div class="col-sm-12">
-                <input type="password" class="form-control" placeholder="Price" data-bind="textInput:price">
+            <div class="row hidden" id="orderContainer" data-bind="template:{name:'order'}">
             </div>
+            <div data-bind="template: {name:'add-to-catalog-modal'}"></div>
+            <div data-bind="template: {name:'finish-order-modal'}"></div>
         </div>
-        <div class="form-group">
-            <div class="col-sm-12">
-                <input type="password" class="form-control" placeholder="Stock" data-bind="textInput:stock">
-            </div>
-        </div>
-        <div class="form-group">
-            <div class="col-sm-12">
-                <button type="submit" class="btn btn-default" data-bind="{click:$parent.addProduct}"><i class="glyphicon glyphicon-plus-sign"></i> Add Product</button>
-            </div>
-        </div>
-    </form>
 
-    <div class="input-group">
-        <span class="input-group-addon"><i class="glyphicon glyphicon-search"></i> Search</span>
-        <input type="text" class="form-control" data-bind="textInput:searchTerm, valueUpdate: 'keyup'">
-    </div>
-    <strong>Items:</strong><span data-bind="text: catalog().length"></span>
-    <table class="table">
-        <thead>
-            <tr>
-                <th>Name</th>
-                <th>Price</th>
-                <th>Stock</th>
-            </tr>
-        </thead>
-        <tbody data-bind="foreach: catalog">
-            <tr>
-                <td data-bind="text: name"></td>
-                <td data-bind="text: price"></td>
-                <td data-bind="text: stock"></td>
-            </tr>
-        </tbody>
-    </table>
+        <!-- templates -->
+        <script type="text/html" id="header"></script>
+        <script type="text/html" id="catalog"></script>
+        <script type="text/html" id="add-to-catalog-modal"></script>
+        <script type="text/html" id="cart-widget"></script>
+        <script type="text/html" id="cart-item"></script>
+        <script type="text/html" id="cart"></script>
+        <script type="text/html" id="order"></script>
+        <script type="text/html" id="finish-order-modal"></script>
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.2.0/js/bootstrap.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/knockout/3.2.0/knockout-min.js"></script>
-
-    <script src="/koCart/js/models/product.js"></script>
-    <script src="/koCart/js/viewmodel.js"></script>
-</body>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.2.0/js/bootstrap.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/knockout/3.2.0/knockout-min.js"></script>
+        
+        <script src="/koCart/js/models/product.js"></script>
+        <script src="/koCart/js/viewmodel.js"></script>
+    </body>
 </html>
