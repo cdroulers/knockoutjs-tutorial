@@ -6,7 +6,7 @@ var vm = (function () {
         new Product(2, "Trousers", 20.00, 10),
         new Product(3, "Shirt", 15.00, 20),
         new Product(4, "Shorts", 5.00, 10)
-    ]);
+        ]);
 
     var newProduct = {
         name:ko.observable(''),
@@ -58,12 +58,97 @@ var vm = (function () {
         });
         return filtered;
     });
+    var cart = ko.observableArray([]);
+    var showCartDetails = function () {
+        if (cart().length > 0) {
+            $("#cartContainer").removeClass("hidden");
+        }
+    };
+
+    var addToCart = function (data) {
+        var item = null;
+        var tmpCart = cart();
+        var n = tmpCart.length;
+
+        while (n--) {
+            if (tmpCart[n].product.id() === data.id()) {
+                item = tmpCart[n];
+            }
+        }
+
+        if (item) {
+            item.addUnit();
+        } else {
+            item = new CartProduct(data, 1);   
+            cart.push(item);
+        }
+    };
+
+    var removeFromCart = function (data) {
+        var units = data.units();
+        var stock = data.product.stock();
+
+        data.product.stock(units + stock);
+        cart.remove(data);
+    };
+
+    var totalItems = ko.computed(function () {
+        var tmpCart = cart();
+        var total = 0;
+        tmpCart.forEach(function (item) {
+            total += parseInt(item.units(), 10);
+        });
+        return total;
+    });
+
+    var grandTotal = ko.computed(function () {
+        var tmpCart = cart();
+        var total = 0;
+        tmpCart.forEach(function (item) {
+            total += item.units() * item.product.price();
+        });
+        return total;
+    });
+
+    var hideCartDetails = function () {
+        $("#cartContainer").addClass("hidden");
+    };
+
+    var showOrder = function () {
+        $("#catalogContainer").addClass("hidden");
+        $("#orderContainer").removeClass("hidden");
+    };
+
+    var showCatalog = function () {
+        $("#catalogContainer").removeClass("hidden");
+        $("#orderContainer").addClass("hidden");
+    };
+
+    var finishOrder = function() {
+        cart([]);
+        hideCartDetails();
+        showCatalog();
+        $("#finishOrderModal").modal('show');
+    };
 
     return {
+        // First chapter
         catalog: filteredCatalog,
         newProduct: newProduct,
         addProduct: addProduct,
-        searchTerm: searchTerm
+        searchTerm: searchTerm,
+
+        // Second chapter
+        cart: cart,
+        showCartDetails: showCartDetails,
+        addToCart: addToCart,
+        removeFromCart: removeFromCart,
+        totalItems: totalItems,
+        grandTotal: grandTotal,
+        hideCartDetails: hideCartDetails,
+        showOrder: showOrder,
+        showCatalog: showCatalog,
+        finishOrder: finishOrder
     };
 })();
 
