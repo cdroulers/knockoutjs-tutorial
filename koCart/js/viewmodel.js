@@ -157,27 +157,9 @@ var vm = (function () {
     };
 })();
 
-var templates = [
-    'header',
-    'catalog',
-    'cart',
-    'cart-item',
-    'cart-widget',
-    'order',
-    'add-to-catalog-modal',
-    'finish-order-modal'
-];
-
-var busy = templates.length;
-templates.forEach(function (tpl) {
-    $.get('views/'+ tpl + '.html').then(function (data) {
-        $('body').append(data);
-        busy--;
-        if (!busy) {
-            ko.applyBindings(vm);
-        }
-    });
-});
+infuser.defaults.templateSuffix = ".html";
+infuser.defaults.templateUrl = "views";
+ko.applyBindings(vm);
 
 // Bind to global scope for debugging.
 window.vm = vm;
