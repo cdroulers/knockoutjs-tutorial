@@ -1,5 +1,5 @@
+"use strict";
 var vm = (function () {
-    "use strict";
 
     var catalog = ko.observableArray([
         new Product(1, "T-Shirt", 10.00, 20),
@@ -12,7 +12,7 @@ var vm = (function () {
         name:ko.observable(''),
         price:ko.observable(''),
         stock:ko.observable(''),
-        clear: function() {
+        clear: function () {
             this.name('');
             this.price('');
             this.stock('');
@@ -157,7 +157,27 @@ var vm = (function () {
     };
 })();
 
-ko.applyBindings(vm); //Here we link KO and the view
+var templates = [
+    'header',
+    'catalog',
+    'cart',
+    'cart-item',
+    'cart-widget',
+    'order',
+    'add-to-catalog-modal',
+    'finish-order-modal'
+];
+
+var busy = templates.length;
+templates.forEach(function (tpl) {
+    $.get('views/'+ tpl + '.html').then(function (data) {
+        $('body').append(data);
+        busy--;
+        if (!busy) {
+            ko.applyBindings(vm);
+        }
+    });
+});
 
 // Bind to global scope for debugging.
 window.vm = vm;
