@@ -22,3 +22,14 @@ ko.bindingHandlers.currency = {
             allBindingsAccessor);
     }
 };
+
+ko.bindingHandlers.toJSON = {
+    update: function (element, valueAccessor, allBindingsAccessor) {
+        return ko.bindingHandlers.text.update(
+            element,
+            function () {
+                return ko.toJSON(valueAccessor(), null, 2);
+            },
+            allBindingsAccessor);
+    }
+};
