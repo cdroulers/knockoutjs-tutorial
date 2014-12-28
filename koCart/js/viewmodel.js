@@ -109,16 +109,6 @@ var vm = (function () {
     var visibleCatalog = ko.observable(true);    
     var visibleCart = ko.observable(false);
 
-    var showCartDetails = function () {
-        if (cart().length > 0) {
-            visibleCart(true);
-        }
-    };
-
-    var hideCartDetails = function () {
-        visibleCart(false);
-    };
-
     var showOrder = function () {
         visibleCatalog(false);
     };
@@ -129,7 +119,7 @@ var vm = (function () {
 
     var finishOrder = function() {
         cart([]);
-        hideCartDetails();
+        visibleCart(false);
         showCatalog();
         $("#finishOrderModal").modal('show');
     };
@@ -143,12 +133,10 @@ var vm = (function () {
 
         // Second chapter
         cart: cart,
-        showCartDetails: showCartDetails,
         addToCart: addToCart,
         removeFromCart: removeFromCart,
         totalItems: totalItems,
         grandTotal: grandTotal,
-        hideCartDetails: hideCartDetails,
         showOrder: showOrder,
         showCatalog: showCatalog,
         finishOrder: finishOrder,
