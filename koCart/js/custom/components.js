@@ -19,11 +19,8 @@ ko.components.register('add-to-cart-button', {
                 item.addUnit();
             } else {
                 item = new CartProduct(data, 1);
-                tmpCart.push(item);
-                item.product.decreaseStock(1);
+                this.cart.push(item);
             }
-
-            this.cart(tmpCart);
         };
     },
     template: '<button class="btn btn-primary" data-bind="click: addToCart"><i class="glyphicon glyphicon-plus-sign"></i> Add</button>'

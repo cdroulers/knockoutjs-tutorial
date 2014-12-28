@@ -61,25 +61,6 @@ var vm = (function () {
 
     var cart = ko.observableArray([]);
 
-    var addToCart = function (data) {
-        var item = null;
-        var tmpCart = cart();
-        var n = tmpCart.length;
-
-        while (n--) {
-            if (tmpCart[n].product.id() === data.id()) {
-                item = tmpCart[n];
-            }
-        }
-
-        if (item) {
-            item.addUnit();
-        } else {
-            item = new CartProduct(data, 1);   
-            cart.push(item);
-        }
-    };
-
     var removeFromCart = function (data) {
         var units = data.units();
         var stock = data.product.stock();
@@ -135,7 +116,6 @@ var vm = (function () {
 
         // Second chapter
         cart: cart,
-        addToCart: addToCart,
         removeFromCart: removeFromCart,
         totalItems: totalItems,
         grandTotal: grandTotal,

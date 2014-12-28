@@ -17,7 +17,7 @@
             <td data-bind="{currency: price, symbol: '€'}"></td>
             <td data-bind="text: stock"></td>
             <td>
-                <button class="btn btn-primary" data-bind="click: $parent.addToCart"><i class="glyphicon glyphicon-plus-sign"></i> Add</button>
+                <add-to-cart-button params="{ cart: $parent.cart, item: $data }" />
             </td>
         </tr>
     </tbody>
