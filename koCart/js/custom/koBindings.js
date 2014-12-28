@@ -33,3 +33,32 @@ ko.bindingHandlers.toJSON = {
             allBindingsAccessor);
     }
 };
+
+ko.bindingHandlers.hidden = {
+    update: function (element, valueAccessor, allBindingsAccessor) {
+        var value = !ko.utils.unwrapObservable(valueAccessor());
+        ko.bindingHandlers.visible.update(element, function () { return value; }, allBindingsAccessor);
+    }
+};
+
+ko.bindingHandlers.icheck = {
+    init: function (element, valueAccessor) {
+        $(element).iCheck({
+            checkboxClass: 'icheckbox_minimal-blue',
+            increaseArea: '10%'
+        });
+
+        $(element).on('ifChanged', function () {
+            var observable = valueAccessor();
+            observable($(element)[0].checked);
+        });
+    },
+    update: function (element, valueAccessor) {
+        var value = ko.unwrap(valueAccessor());
+        if (value) {
+            $(element).iCheck('check');
+        } else {
+            $(element).iCheck('uncheck');
+        }
+    }
+};

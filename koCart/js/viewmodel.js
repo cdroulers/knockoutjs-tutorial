@@ -124,6 +124,8 @@ var vm = (function () {
         $("#finishOrderModal").modal('show');
     };
 
+    var showSearchBar = ko.observable(true);
+
     return {
         // First chapter
         catalog: filteredCatalog,
@@ -141,7 +143,8 @@ var vm = (function () {
         showCatalog: showCatalog,
         finishOrder: finishOrder,
         visibleCatalog: visibleCatalog,
-        visibleCart: visibleCart
+        visibleCart: visibleCart,
+        showSearchBar: showSearchBar
     };
 })();
 
