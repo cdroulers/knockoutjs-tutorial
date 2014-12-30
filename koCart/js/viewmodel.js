@@ -144,6 +144,21 @@ var vm = (function () {
 
 infuser.defaults.templateSuffix = ".html";
 infuser.defaults.templateUrl = "views";
+
+$(document).on("click", "#confirmOrderBtn", function () {
+    vm.showOrder();
+});
+
+$(document).on("click", ".add-unit", function () {
+    var data = ko.dataFor(this);
+    data.addUnit();
+});
+
+$(document).on("click", ".remove-unit", function () {
+    var data = ko.dataFor(this);
+    data.removeUnit();
+});
+
 ko.applyBindings(vm);
 
 // Bind to global scope for debugging.
