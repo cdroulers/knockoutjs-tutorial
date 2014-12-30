@@ -107,7 +107,21 @@ var vm = (function () {
 
     var showSearchBar = ko.observable(true);
 
+    var debug = ko.observable(false);
+
+    var showDebug = function () {
+        debug(true);
+    };
+
+    var hideDebug = function () {
+        debug(false);
+    };
+
     return {
+        debug: debug,
+        showDebug: showDebug,
+        hideDebug: hideDebug,
+
         // First chapter
         catalog: filteredCatalog,
         newProduct: newProduct,
