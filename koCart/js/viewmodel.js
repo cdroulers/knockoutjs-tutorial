@@ -31,7 +31,8 @@ var vm = (function () {
         newProduct.clear();
     };
     var searchTerm = ko.observable('');
-    var filteredCatalog = ko.computed(function () {
+    var filteredCatalog = ko.observableArray(catalog());
+    var filterCatalog = function () {
         //if catalog is empty return empty array
         if (!catalog()) {
             return [];
@@ -39,7 +40,7 @@ var vm = (function () {
         var filter = searchTerm().toLowerCase();
         //if filter is empty return all the catalog
         if (!filter) {
-            return catalog();
+            filteredCatalog(catalog());
         }
         //filter data
         var filtered = ko.utils.arrayFilter(catalog(), function (item) {
@@ -56,8 +57,8 @@ var vm = (function () {
             }
             return false;
         });
-        return filtered;
-    });
+        filteredCatalog(filtered);
+    };
 
     var cart = ko.observableArray([]);
 
@@ -124,6 +125,7 @@ var vm = (function () {
 
         // First chapter
         catalog: filteredCatalog,
+        filterCatalog: filterCatalog,
         newProduct: newProduct,
         addProduct: addProduct,
         searchTerm: searchTerm,
@@ -147,24 +149,6 @@ infuser.defaults.templateUrl = "views";
 
 $(document).on("click", "#confirmOrderBtn", function () {
     vm.showOrder();
-});
-
-$(document).on("click", ".add-unit", function () {
-    var data = ko.dataFor(this);
-    $(document).trigger("product:action",[data, "addUnit"]);
-});
-
-$(document).on("click", ".remove-unit", function () {
-    var data = ko.dataFor(this);
-    $(document).trigger("product:action",[data, "removeUnit"]);
-});
-
-$(document).on("product:action", function (event, data, action){
-   if(data.hasOwnProperty(action)) {
-       if (typeof data[action] === 'function'){
-           data[action]();
-       }
-   }
 });
 
 ko.applyBindings(vm);

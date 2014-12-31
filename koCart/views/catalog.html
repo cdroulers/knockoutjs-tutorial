@@ -1,6 +1,6 @@
 <div class="input-group" data-bind="visible: showSearchBar">
     <span class="input-group-addon"><i class="glyphicon glyphicon-search"></i> Search</span>
-    <input type="text" class="form-control" data-bind="textInput: searchTerm">
+    <input type="text" class="form-control" data-bind="textInput: searchTerm, valueUpdate: 'keyup', executeOnEnter: filterCatalog">
 </div>
 <table class="table">
     <thead>
