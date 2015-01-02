@@ -2,7 +2,7 @@
     <button class="btn btn-sm btn-primary" data-bind="click: showCatalog">
         Back to catalog
     </button>
-    <button class="btn btn-sm btn-primary" data-bind="click: finishOrder">
+    <button class="btn btn-sm btn-primary" data-bind="click: finishOrder, enable:!customer.errors().length">
         Buy &amp; finish
     </button>
 </div>

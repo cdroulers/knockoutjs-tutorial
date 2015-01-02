@@ -9,24 +9,24 @@
                 <div class="modal-body">
                     <div class="form-group">
                         <div class="col-sm-12">
-                            <input type="text" class="form-control" placeholder="Name" data-bind="textInput: name">
+                            <input type="text" class="form-control" placeholder="Name" data-bind="textInput: product.name">
                         </div>
                     </div>
                     <div class="form-group">
                         <div class="col-sm-12">
-                            <input type="text" class="form-control" placeholder="Price" data-bind="textInput: price">
+                            <input type="text" class="form-control" placeholder="Price" data-bind="textInput: product.price">
                         </div>
                     </div>
                     <div class="form-group">
                         <div class="col-sm-12">
-                            <input type="text" class="form-control" placeholder="Stock" data-bind="textInput: stock">
+                            <input type="text" class="form-control" placeholder="Stock" data-bind="textInput: product.stock">
                         </div>
                     </div>
                 </div>
                 <div class="modal-footer">
                     <div class="form-group">
                         <div class="col-sm-12">
-                            <button type="submit" class="btn btn-default" data-bind="{ click: $parent.addProduct }"><i class="glyphicon glyphicon-plus-sign"></i> Add Product</button>
+                            <button type="submit" class="btn btn-default" data-bind="click: $parent.addProduct, enable: !product.errors().length"><i class="glyphicon glyphicon-plus-sign"></i> Add Product</button>
                         </div>
                     </div>
                 </div>

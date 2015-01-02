@@ -1,4 +1,12 @@
 "use strict";
+
+ko.validation.init({
+    registerExtenders: true,
+    messagesOnModified: true,
+    insertMessages: true,
+    parseInputAttributes: true
+});
+
 var vm = (function () {
     var productSvc = new ProductService();
     var orderSvc = new OrderService();
@@ -9,19 +17,18 @@ var vm = (function () {
             catalog.push(new Product(item.id, item.name, item.price, item.stock));
         });
         filteredCatalog(catalog());
+
         ko.applyBindings(vm);
     };
 
     var catalog = ko.observableArray([]);
 
     var newProduct = {
-        name: ko.observable(''),
-        price: ko.observable(''),
-        stock: ko.observable(''),
+        product: new Product(0, "", "", ""),
         clear: function () {
-            this.name('');
-            this.price('');
-            this.stock('');
+            this.product.name('');
+            this.product.price('');
+            this.product.stock('');
         }
     };
 
@@ -29,9 +36,9 @@ var vm = (function () {
         var id = new Date().valueOf();
         var product = new Product(
             id,
-            data.name(),
-            data.price(),
-            data.stock()
+            data.product.name(),
+            data.product.price(),
+            data.product.stock()
         );
 
         productSvc.create(product.toObj()).done(function (response) {
