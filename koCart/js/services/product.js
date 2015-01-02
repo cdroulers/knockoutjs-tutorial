@@ -27,7 +27,7 @@ function ProductService() {
     function update(product) {
         return $.ajax({
             type: 'PUT',
-            url: '/products',
+            url: '/products/' + product.id,
             data: product,
             dataType: "json"
         });

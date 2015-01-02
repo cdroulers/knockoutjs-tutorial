@@ -47,3 +47,16 @@ $.mockjax({
         }
     }
 });
+
+$.mockjax({
+    url: /^\/products\/([\d]+)$/,
+    type: "PUT",
+    dataType: "json",
+    responseTime: 750,
+    responseText: {
+        "data": {
+            result: "true",
+            text: "Product updated"
+        }
+    }
+});

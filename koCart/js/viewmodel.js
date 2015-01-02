@@ -138,6 +138,32 @@ var vm = (function () {
         });
     };
 
+    var tmpProduct = null;
+    var selectedProduct = ko.observable(new Product());
+    var clone = function (p) {
+        return new Product(p.id(), p.name(), p.price(), p.stock());
+    };
+    var openEditModal = function (product) {
+        tmpProduct = clone(product);
+        selectedProduct(product);
+        $('#editProductModal').modal('show');
+    };
+    var restoreProduct = function (p) {
+        p.id(tmpProduct.id());
+        p.name(tmpProduct.name());
+        p.stock(tmpProduct.stock());
+        p.price(tmpProduct.price());
+    };
+    var cancelEdition = function (product) {
+        restoreProduct(product);
+        $('#editProductModal').modal('hide');
+    };
+    var updateProduct = function (product) {
+        productSvc.update(product.toObj()).done(function (response) {
+            $('#editProductModal').modal('hide');
+        });
+    };
+
     return {
         activate: activate,
         debug: debug,
@@ -162,7 +188,11 @@ var vm = (function () {
         visibleCatalog: visibleCatalog,
         visibleCart: visibleCart,
         showSearchBar: showSearchBar,
-        showDescription: showDescription
+        showDescription: showDescription,
+        openEditModal: openEditModal,
+        cancelEdition: cancelEdition,
+        updateProduct: updateProduct,
+        selectedProduct: selectedProduct
     };
 })();
 
