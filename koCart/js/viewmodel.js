@@ -24,16 +24,21 @@ var vm = (function () {
         }
     };
 
-    var addProduct = function (context) {
-        var id = new Date().valueOf();//random id from time
+    var addProduct = function (data) {
+        var id = new Date().valueOf();
         var product = new Product(
             id,
-            context.name(),
-            context.price(),
-            context.stock()
-            );
-        catalog.push(product);
-        newProduct.clear();
+            data.name(),
+            data.price(),
+            data.stock()
+        );
+
+        productSvc.create(product.toObj()).done(function (response) {
+            catalog.push(product);
+            filteredCatalog(catalog());
+            newProduct.clear();
+            $('#addToCatalogModal').modal('hide');
+        });
     };
     var searchTerm = ko.observable('');
     var filteredCatalog = ko.observableArray(catalog());

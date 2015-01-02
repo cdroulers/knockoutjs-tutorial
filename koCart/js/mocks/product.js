@@ -34,3 +34,16 @@ $.mockjax({
         }
     })
 });
+
+$.mockjax({
+    url: "/products",
+    type: "POST",
+    dataType: "json",
+    responseTime: 750,
+    responseText: {
+        "data": {
+            result: "true",
+            text: "Product created"
+        }
+    }
+});

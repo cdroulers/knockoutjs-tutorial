@@ -7,10 +7,20 @@ var Product = function (id, name, price, stock) {
         _price = ko.observable(price),
         _stock = ko.observable(stock);
 
+    var toObj = function () {
+        return {
+            id: _id(),
+            name: _name(),
+            price: _price(),
+            stock: _stock()
+        };
+    };
+
     return {
         id: _id,
         name: _name,
         price: _price,
-        stock: _stock
+        stock: _stock,
+        toObj: toObj
     };
 };
