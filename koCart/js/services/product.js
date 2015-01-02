@@ -1,3 +1,4 @@
+"use strict";
 function ProductService() {
     function all() {
         return $.ajax({

@@ -1,6 +1,7 @@
 "use strict";
 var vm = (function () {
     var productSvc = new ProductService();
+    var orderSvc = new OrderService();
 
     var allCallbackSuccess = function (response) {
         catalog([]);
@@ -110,10 +111,16 @@ var vm = (function () {
     };
 
     var finishOrder = function() {
-        cart([]);
-        visibleCart(false);
-        showCatalog();
-        $("#finishOrderModal").modal('show');
+        var data = {
+            order: ko.toJS(cart),
+            customer: ko.toJS(customerData)
+        }
+        orderSvc.create(data).done(function (response) {
+            cart([]);
+            visibleCart(false);
+            showCatalog();
+            $("#finishOrderModal").modal('show');
+        });
     };
 
     var showSearchBar = ko.observable(true);
@@ -171,6 +178,8 @@ var vm = (function () {
          });
     };
 
+    var countries = ko.observableArray(['United States','United Kingdom']);
+
     return {
         activate: activate,
         debug: debug,
@@ -200,7 +209,9 @@ var vm = (function () {
         cancelEdition: cancelEdition,
         updateProduct: updateProduct,
         selectedProduct: selectedProduct,
-        deleteProduct: deleteProduct
+        deleteProduct: deleteProduct,
+        customer: customerData,
+        countries: countries
     };
 })();
 
