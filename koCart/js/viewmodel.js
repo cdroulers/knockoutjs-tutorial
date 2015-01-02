@@ -1,17 +1,22 @@
 "use strict";
 var vm = (function () {
+    var productSvc = new ProductService();
 
-    var catalog = ko.observableArray([
-        new Product(1, "T-Shirt", 10.00, 20),
-        new Product(2, "Trousers", 20.00, 10),
-        new Product(3, "Shirt", 15.00, 20),
-        new Product(4, "Shorts", 5.00, 10)
-        ]);
+    var allCallbackSuccess = function (response) {
+        catalog([]);
+        response.data.forEach(function (item) {
+            catalog.push(new Product(item.id, item.name, item.price, item.stock));
+        });
+        filteredCatalog(catalog());
+        ko.applyBindings(vm);
+    };
+
+    var catalog = ko.observableArray([]);
 
     var newProduct = {
-        name:ko.observable(''),
-        price:ko.observable(''),
-        stock:ko.observable(''),
+        name: ko.observable(''),
+        price: ko.observable(''),
+        stock: ko.observable(''),
         clear: function () {
             this.name('');
             this.price('');
@@ -118,7 +123,12 @@ var vm = (function () {
         debug(false);
     };
 
+    var activate = function () {
+        productSvc.all().done(allCallbackSuccess);
+    };
+
     return {
+        activate: activate,
         debug: debug,
         showDebug: showDebug,
         hideDebug: hideDebug,
@@ -147,11 +157,11 @@ var vm = (function () {
 infuser.defaults.templateSuffix = ".html";
 infuser.defaults.templateUrl = "views";
 
+vm.activate();
+
 $(document).on("click", "#confirmOrderBtn", function () {
     vm.showOrder();
 });
-
-ko.applyBindings(vm);
 
 // Bind to global scope for debugging.
 window.vm = vm;
