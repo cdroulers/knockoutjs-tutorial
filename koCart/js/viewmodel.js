@@ -127,6 +127,12 @@ var vm = (function () {
         productSvc.all().done(allCallbackSuccess);
     };
 
+    var showDescription = function (data) {
+        productSvc.get(data.id()).done(function (response) {
+            alert(response.data.description);
+        });
+    };
+
     return {
         activate: activate,
         debug: debug,
@@ -150,7 +156,8 @@ var vm = (function () {
         finishOrder: finishOrder,
         visibleCatalog: visibleCatalog,
         visibleCart: visibleCart,
-        showSearchBar: showSearchBar
+        showSearchBar: showSearchBar,
+        showDescription: showDescription
     };
 })();
 
