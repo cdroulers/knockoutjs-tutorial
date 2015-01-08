@@ -2,4 +2,4 @@
 <h1>Cart</h1>
 <div data-bind="template: { name: 'cart-item', foreach: cart }" class="list-group"></div>
 <div data-bind="template: { name: 'cart-widget' }"></div>
-<button class="btn btn-primary btn-sm" id="confirmOrderBtn">Confirm Order</button>
+<button class="btn btn-primary btn-sm" data-bind="click: showOrder">Confirm Order</button>
