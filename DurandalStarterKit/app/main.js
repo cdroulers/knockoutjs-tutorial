@@ -16,7 +16,7 @@
     }
 });
 
-define(['durandal/system', 'durandal/app', 'durandal/viewLocator'],  function (system, app, viewLocator) {
+define(['durandal/system', 'durandal/app', 'durandal/viewLocator', 'bootstrap'],  function (system, app, viewLocator, bootstrap) {
     //>>excludeStart("build", true);
     system.debug(true);
     //>>excludeEnd("build");
@@ -25,7 +25,14 @@ define(['durandal/system', 'durandal/app', 'durandal/viewLocator'],  function (s
 
     app.configurePlugins({
         router:true,
-        dialog: true
+        dialog: true,
+        widget: true
+    });
+    
+    app.configurePlugins({
+        widget: {
+            kinds: ['accordion']
+        }
     });
 
     app.start().then(function() {
