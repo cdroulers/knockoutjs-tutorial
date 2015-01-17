@@ -1,0 +1,25 @@
+<div class="row cart-detail">
+    <div class="col-lg-2 col-md-4 col-sm-4 col-xs-4">
+        <strong>
+            <i class="glyphicon glyphicon-shopping-cart"></i> 
+            Items in the cart:
+        </strong>
+        <span data-bind="text: CartService.cart().length"></span>
+    </div>
+    <div class="col-lg-2 col-md-4 col-sm-4 col-xs-4">
+        <strong>
+            <i class="glyphicon glyphicon-usd"></i> 
+            Total Amount:
+        </strong>
+        <span data-bind="text: CartService.grandTotal"></span>
+    </div>
+    <div class="col-lg-8 col-md-4  col-sm-4 col-xs-4 text-right">
+        <button data-bind="click: refresh" class="btn btn-primary btn-lg">
+            <i class="glyphicon glyphicon-refresh"></i> Refresh
+        </button>
+        <a href="#/cart" class="btn btn-primary btn-lg">
+            <i class="glyphicon glyphicon-shopping-cart"></i> 
+            Go To Cart
+        </a>
+    </div>
+</div>

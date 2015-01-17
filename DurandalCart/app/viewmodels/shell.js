@@ -8,9 +8,11 @@
         },
         activate: function () {
             router.map([
-                { route: '', title:'Welcome', moduleId: 'viewmodels/welcome', nav: true },
-                { route: 'flickr', moduleId: 'viewmodels/flickr', nav: true },
-                { route: 'accordion', moduleId: 'viewmodels/accordion', nav: true }
+                { route: ['', '/', 'catalog'], title: 'Catalog', moduleId: 'viewmodels/catalog', nav: true },
+                { route: 'new', title: 'New product', moduleId: 'viewmodels/new', nav: true },
+                { route: 'edit/:id', title: 'Edit product', moduleId: 'viewmodels/edit', nav: false },
+                { route: 'cart', title: 'Cart', moduleId: 'viewmodels/cart', nav: false },
+                { route: 'order', title: 'Order', moduleId: 'viewmodels/order', nav: true }
             ]).buildNavigationModel();
             
             return router.activate();
