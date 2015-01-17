@@ -1,0 +1,39 @@
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-xs-6 col-xs-offset-3">
+            <form class="form-horizontal" role="form" data-bind="with: product">
+                <div class="modal-header">
+                    <h3 data-bind="text: $parent.title"></h3>
+                </div>
+                <div class="modal-body">
+                    <div class="form-group">
+                        <div class="col-sm-12">
+                            <input type="text" class="form-control" placeholder="Name" data-bind="textInput: name">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-sm-12">
+                            <input type="text" class="form-control" placeholder="Price" data-bind="textInput: price">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-sm-12">
+                            <input type="text" class="form-control" placeholder="Stock" data-bind="textInput: stock">
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <div class="form-group">
+                        <div class="col-sm-12">
+                            <a href="#/catalog">Cancel</a>
+                            <button type="submit" class="btn btn-default" data-bind="click: $parent.edit, enable: !errors().length">
+                                <i class="glyphicon glyphicon-plus-sign"></i>
+                                <span data-bind="text: $parent.btn"></span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

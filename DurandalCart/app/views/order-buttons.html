@@ -1,0 +1,8 @@
+<div class="col-xs-12">
+    <button class="btn btn-sm btn-primary" data-bind="click: finishOrder, enable: !customer.errors().length">
+        Buy &amp; finish
+    </button>
+    <span class="text-danger" data-bind="visible: customer.errors().length">
+        Complete your personal data to receive the order.
+    </span>
+</div>

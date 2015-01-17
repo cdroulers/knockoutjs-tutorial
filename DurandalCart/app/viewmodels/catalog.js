@@ -2,13 +2,13 @@ define([
     'plugins/http',
     'plugins/router',
     'durandal/app',
-    'services/log',
+    'services/logger',
     'knockout',
     'services/product',
-    'services/cart'
-], function (http, router, app, logger, ko, ProductService, CartService) {
+    'services/cart',
+    'models/product'
+], function (http, router, app, logger, ko, ProductService, CartService, Product) {
     var productService = new ProductService();
-    var cartService = new CartService();
 
     var vm = {
         title: 'Catalog'
@@ -18,6 +18,8 @@ define([
     vm.searchTerm = ko.observable("");
     vm.catalog = ko.observableArray([]);
     vm.filteredCatalog = ko.observableArray([]);
+
+    vm.CartService = CartService;
 
     vm.filterCatalog = function () {
         if (!vm.catalog()) {
@@ -58,7 +60,7 @@ define([
             if (answer === "Yes") {
                 productService.remove(item.id()).then(function (response) {
                     vm.refresh();
-                    cartService.remove(item);
+                    CartService.remove(item);
                 });
             }
         });
@@ -71,7 +73,7 @@ define([
                 vm.catalog.push(new Product(item.id, item.name, item.price, item.stock));
             });
             var catalog = vm.catalog();
-            cartService.update(catalog);
+            CartService.update(catalog);
             vm.catalog(catalog);
             vm.filteredCatalog(catalog);
             logger.success("Downloaded " + catalog.length + " products", "Catalog loaded");
